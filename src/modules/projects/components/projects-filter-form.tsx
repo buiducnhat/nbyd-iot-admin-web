@@ -1,11 +1,11 @@
 import { Button, Form, Select, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-type TUsersFilterFormProps = {
+type TProjectsFilterFormProps = {
   onSubmit: (values: any) => void;
 };
 
-const UsersFilterForm = ({ onSubmit }: TUsersFilterFormProps) => {
+const ProjectsFilterForm = ({ onSubmit }: TProjectsFilterFormProps) => {
   const { t } = useTranslation();
 
   const [form] = Form.useForm();
@@ -13,7 +13,7 @@ const UsersFilterForm = ({ onSubmit }: TUsersFilterFormProps) => {
   return (
     <Form
       form={form}
-      name="users-filter-form"
+      name="projects-filter-form"
       autoComplete="off"
       style={{ width: 360 }}
       labelCol={{ span: 6 }}
@@ -23,23 +23,23 @@ const UsersFilterForm = ({ onSubmit }: TUsersFilterFormProps) => {
         roles: [],
       }}
     >
-      <Form.Item name="roles" label={t('Roles')}>
+      <Form.Item name="statuses" label={t('Status')}>
         <Select
           mode="multiple"
           allowClear
           style={{ width: '100%' }}
           options={[
             {
-              label: t('Admin'),
-              value: 'ADMIN',
+              label: t('Active'),
+              value: 'ACTIVE',
             },
             {
-              label: t('User'),
-              value: 'USER',
+              label: t('Inactive'),
+              value: 'INACTIVE',
             },
           ]}
           onChange={(e) => {
-            form.setFieldValue('roles', e);
+            form.setFieldValue('statuses', e);
           }}
         />
       </Form.Item>
@@ -66,4 +66,4 @@ const UsersFilterForm = ({ onSubmit }: TUsersFilterFormProps) => {
   );
 };
 
-export default UsersFilterForm;
+export default ProjectsFilterForm;

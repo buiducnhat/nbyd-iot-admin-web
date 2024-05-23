@@ -1,4 +1,8 @@
-import { AppstoreOutlined, TeamOutlined } from '@ant-design/icons';
+import {
+  AppstoreOutlined,
+  DeploymentUnitOutlined,
+  TeamOutlined,
+} from '@ant-design/icons';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useNavigate } from '@tanstack/react-router';
@@ -39,6 +43,11 @@ const MainSideNav = ({ collapsed, setCollapsed }: TMainSideNavProps) => {
         key: '/users',
         icon: <TeamOutlined />,
         label: t('Users'),
+      },
+      {
+        key: '/projects',
+        icon: <DeploymentUnitOutlined />,
+        label: t('Projects'),
       },
     ],
     [t],

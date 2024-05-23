@@ -68,6 +68,16 @@
   "projectsCount": "Projects count",
   "gatewaysCount": "Gateways count",
   "devicesCount": "Devices count",
+  "Projects": "",
+  "Project": "",
+  "Project management": "",
+  "Name": "",
+  "Status": "",
+  "Location": "",
+  "Owner": "",
+  "Active": "",
+  "Inactive": "",
+  "Gateways": "",
 
   "ApiResCode": {
     "1": "An error occurred",

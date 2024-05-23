@@ -15,6 +15,7 @@ import { Route as AuthImport } from './routes/_auth'
 import { Route as AppImport } from './routes/_app'
 import { Route as IndexImport } from './routes/index'
 import { Route as AppUsersImport } from './routes/_app/users'
+import { Route as AppProjectsImport } from './routes/_app/projects'
 import { Route as AppProfileImport } from './routes/_app/profile'
 import { Route as AppDashboardImport } from './routes/_app/dashboard'
 import { Route as AuthAuthLoginImport } from './routes/_auth/auth/login'
@@ -38,6 +39,11 @@ const IndexRoute = IndexImport.update({
 
 const AppUsersRoute = AppUsersImport.update({
   path: '/users',
+  getParentRoute: () => AppRoute,
+} as any)
+
+const AppProjectsRoute = AppProjectsImport.update({
+  path: '/projects',
   getParentRoute: () => AppRoute,
 } as any)
 
@@ -95,6 +101,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProfileImport
       parentRoute: typeof AppImport
     }
+    '/_app/projects': {
+      id: '/_app/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof AppProjectsImport
+      parentRoute: typeof AppImport
+    }
     '/_app/users': {
       id: '/_app/users'
       path: '/users'
@@ -119,6 +132,7 @@ export const routeTree = rootRoute.addChildren({
   AppRoute: AppRoute.addChildren({
     AppDashboardRoute,
     AppProfileRoute,
+    AppProjectsRoute,
     AppUsersRoute,
   }),
   AuthRoute: AuthRoute.addChildren({ AuthAuthLoginRoute }),
