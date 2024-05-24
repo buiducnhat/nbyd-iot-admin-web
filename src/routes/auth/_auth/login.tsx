@@ -2,7 +2,7 @@ import { LockFilled, UserOutlined } from '@ant-design/icons';
 import { css } from '@emotion/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { Button, Flex, Form, Input, Layout, Typography } from 'antd';
+import { Button, Checkbox, Flex, Form, Input, Layout, Typography } from 'antd';
 import { AxiosError } from 'axios';
 
 import useApp from '@/hooks/use-app';
@@ -12,12 +12,12 @@ import authService from '@/modules/auth/auth.service';
 import { THttpResponse } from '@/shared/http-service';
 import { transApiResDataCode } from '@/shared/utils';
 
-export const Route = createFileRoute('/_auth/auth/login')({
+export const Route = createFileRoute('/auth/_auth/login')({
   component: LoginPage,
 });
 
 function LoginPage() {
-  const { t, antdApp } = useApp();
+  const { t, antdApp, token } = useApp();
 
   const queryClient = useQueryClient();
   const setLoading = useAppStore((state) => state.setLoading);
@@ -30,7 +30,7 @@ function LoginPage() {
       antdApp.notification.success({
         message: t('Login successfully'),
       });
-      queryClient.refetchQueries({ queryKey: ['auth/getMe'] });
+      queryClient.refetchQueries({ queryKey: ['/auth/getMe'] });
       setLoading(false);
     },
     onError: (error: AxiosError<THttpResponse<null>>) => {
@@ -61,11 +61,21 @@ function LoginPage() {
       <Layout.Content
         css={css`
           height: 100dvh;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
         `}
       >
         <Flex
           css={css`
-            height: 100dvh;
+            margin-bottom: 100px;
+            background-color: ${token.colorBgContainer}aa;
+            min-width: ${token.screenSM}px;
+            max-width: ${token.screenMD}px;
+            padding: ${token.paddingXL}px;
+            backdrop-filter: blur(10px);
+            border-radius: ${token.borderRadius}px;
           `}
           vertical
           gap={24}
@@ -77,12 +87,12 @@ function LoginPage() {
           </Typography.Title>
 
           <Form
+            css={css`
+              width: 100%;
+            `}
             form={form}
             layout="vertical"
             size="large"
-            css={css`
-              width: 30%;
-            `}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
           >
@@ -96,8 +106,15 @@ function LoginPage() {
               ]}
             >
               <Input
+                variant="filled"
                 placeholder={t('Enter your username or email')}
-                prefix={<UserOutlined />}
+                prefix={
+                  <UserOutlined
+                    css={css`
+                      color: ${token.colorPrimary};
+                    `}
+                  />
+                }
               />
             </Form.Item>
 
@@ -111,9 +128,30 @@ function LoginPage() {
               ]}
             >
               <Input.Password
+                variant="filled"
                 placeholder={t('Enter your password')}
-                prefix={<LockFilled />}
+                prefix={
+                  <LockFilled
+                    css={css`
+                      color: ${token.colorPrimary};
+                    `}
+                  />
+                }
               />
+            </Form.Item>
+
+            <Form.Item name="remember" valuePropName="checked">
+              <Flex justify="space-between">
+                <Checkbox>{t('Remember me')}</Checkbox>
+
+                <Typography.Link
+                  css={css`
+                    text-align: end;
+                  `}
+                >
+                  {t('Forgot password?')}
+                </Typography.Link>
+              </Flex>
             </Form.Item>
 
             <Form.Item>
@@ -124,7 +162,7 @@ function LoginPage() {
                 type="primary"
                 htmlType="submit"
               >
-                {t('Submit')}
+                {t('Login')}
               </Button>
             </Form.Item>
           </Form>

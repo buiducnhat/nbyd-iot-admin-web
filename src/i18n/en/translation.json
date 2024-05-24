@@ -78,6 +78,9 @@
   "Active": "",
   "Inactive": "",
   "Gateways": "",
+  "Login": "",
+  "Forgot password?": "",
+  "Remember me": "",
 
   "ApiResCode": {
     "1": "An error occurred",
