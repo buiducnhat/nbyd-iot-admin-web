@@ -1,5 +1,4 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
 import { App as AntdApp, ConfigProvider, Spin } from 'antd';
 import enUS from 'antd/locale/en_US';
@@ -46,7 +45,6 @@ const App = () => {
           <RouterProvider router={router} />
         </AntdApp>
       </ConfigProvider>
-      <ReactQueryDevtools buttonPosition="bottom-left" />
     </QueryClientProvider>
   );
 };
